@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require('express');
 const path = require('path');
 const proxy = require('http-proxy-middleware');
@@ -8,9 +9,12 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 // serve up static file
-app.use(express.static('public'));
-app.use('/*/styles.css', express.static('public/styles.css'));
-app.use('/*', express.static('public'));
+const staticPath = `${__dirname}/../public`;
+console.log(staticPath);
+
+app.use('/fandangit/:id', express.static(staticPath));
+// app.use('/*/styles.css', express.static('public/styles.css'));
+// app.use('/*', express.static('public'));
 
 //
 // app.use(express.static(__dirname + '/../client/dist'));
@@ -25,12 +29,14 @@ app.listen(PORT, () => {
 
 
 // video carousel
-const videoCarouselOptions = {
-  target: 'http://localhost:3333',
-  // changeOrigin: true
-};
-const videoCarouselProxy = proxy(videoCarouselOptions);
-app.use('/associatedVideos', videoCarouselProxy);
+// const videoCarouselOptions = {
+//   target: 'http://localhost:3333',
+//   // changeOrigin: true
+// };
+// const videoCarouselProxy = proxy(videoCarouselOptions);
+
+
+// app.use('/associatedVideos', videoCarouselProxy);
 
 
 const castCrewOptions = {
@@ -41,9 +47,9 @@ const castCrewProxy = proxy(castCrewOptions);
 app.use('/actors', castCrewProxy);
 
 
-const movieInfoOptions = {
-  target: 'http://localhost:2000',
-  // changeOrigin: true
-};
-const movieInfoProxy = proxy(movieInfoOptions);
-app.use('/movies', movieInfoProxy);
+// const movieInfoOptions = {
+//   target: 'http://localhost:2000',
+//   changeOrigin: true,
+// };
+// const movieInfoProxy = proxy(movieInfoOptions);
+// app.use('/info', movieInfoProxy);
