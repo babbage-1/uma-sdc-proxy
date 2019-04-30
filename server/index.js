@@ -1,18 +1,22 @@
 require('newrelic');
 const express = require('express');
 const path = require('path');
+const morgan = require('morgan');
 const proxy = require('http-proxy-middleware');
 const cors = require('cors');
 const app = express();
 
 const PORT = process.env.PORT || 3000;
 
+app.use(morgan('dev'));
 app.use(cors());
 // serve up static file
 const staticPath = `${__dirname}/../public`;
 console.log(staticPath);
 
-app.use('/fandangit/:id', express.static(staticPath));
+// app.use('/fandangit/:id', express.static(staticPath));
+app.use('/fandangit/:id', express.static(path.join(__dirname, '/../public')));
+
 // app.use('/*/styles.css', express.static('public/styles.css'));
 // app.use('/*', express.static('public'));
 
@@ -40,8 +44,12 @@ app.listen(PORT, () => {
 
 
 const castCrewOptions = {
-  target: 'http://localhost:2002',
-  // changeOrigin: true
+  target: 'http://127.0.0.1:2002',
+  secure: false,
+  changeOrigin: true,
+  headers: {
+    "Connection": "keep-alive"
+  }
 };
 const castCrewProxy = proxy(castCrewOptions);
 app.use('/actors', castCrewProxy);
