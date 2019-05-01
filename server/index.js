@@ -42,7 +42,7 @@ app.use('/videos', videoCarouselProxy);
 
 
 const castCrewOptions = {
-  target: 'http://ec2-54-215-226-106.us-west-1.compute.amazonaws.com:2002',
+  target: 'http://ec2-13-57-198-90.us-west-1.compute.amazonaws.com:2002',
   // target: 'http://localhost:2002',
 
   changeOrigin: true,
