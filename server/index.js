@@ -33,31 +33,27 @@ app.listen(PORT, () => {
 
 
 // video carousel
-// const videoCarouselOptions = {
-//   target: 'http://localhost:3333',
-//   // changeOrigin: true
-// };
-// const videoCarouselProxy = proxy(videoCarouselOptions);
-
-
-// app.use('/associatedVideos', videoCarouselProxy);
+const videoCarouselOptions = {
+  target: 'http://ec2-54-67-84-44.us-west-1.compute.amazonaws.com:3001',
+  // changeOrigin: true
+};
+const videoCarouselProxy = proxy(videoCarouselOptions);
+app.use('/videos', videoCarouselProxy);
 
 
 const castCrewOptions = {
-  target: 'http://127.0.0.1:2002',
-  secure: false,
+  target: 'http://ec2-54-215-226-106.us-west-1.compute.amazonaws.com:2002',
+  // target: 'http://localhost:2002',
+
   changeOrigin: true,
-  headers: {
-    "Connection": "keep-alive"
-  }
 };
 const castCrewProxy = proxy(castCrewOptions);
 app.use('/actors', castCrewProxy);
 
 
-// const movieInfoOptions = {
-//   target: 'http://localhost:2000',
-//   changeOrigin: true,
-// };
-// const movieInfoProxy = proxy(movieInfoOptions);
-// app.use('/info', movieInfoProxy);
+const movieInfoOptions = {
+  target: 'http://ec2-54-91-248-31.compute-1.amazonaws.com:2000',
+  changeOrigin: true,
+};
+const movieInfoProxy = proxy(movieInfoOptions);
+app.use('/main', movieInfoProxy);
