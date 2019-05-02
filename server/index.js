@@ -30,7 +30,12 @@ app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}...`);
 });
 
+//loaderio-f75653a35c0e232847013ae1a71d54b5
 
+app.get('/loaderio-f75653a35c0e232847013ae1a71d54b5', (req, res) => {
+  const filePath = path.join(__dirname, './loaderio-f75653a35c0e232847013ae1a71d54b5.txt');
+  res.sendFile(filePath);
+});
 
 // video carousel
 const videoCarouselOptions = {
